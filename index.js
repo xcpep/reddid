@@ -7,6 +7,7 @@ const async = require('async')
 const chalk = require('chalk')
 const trunc = require('unicode-byte-truncate')
 const sanitize = require('sanitize-filename')
+const path = require('path')
 
 const defaultOptions = {
   sub: 'pics',
