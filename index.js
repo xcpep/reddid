@@ -64,7 +64,7 @@ function getImage (post, callback) {
   const url = post.data.preview.images[0].source.url
   // truncate to 251 so we have 4 bytes for the file extension
   const filename = trunc(sanitize(post.data.title, {replacement: '_'}), 251)
-  const redditImageRegex = /https?:\/\/i\.redditmedia\.com\/.*\.(jpg|png|gif)/
+  const redditImageRegex = /.(jpg|png|gif|webp|mp4|webm|flv|mkv)/
 
   if (url.match(redditImageRegex)) {
     const match = url.match(redditImageRegex)
@@ -77,8 +77,14 @@ function getImage (post, callback) {
 }
 
 function downloadImage (url, filename, callback) {
+  let dir = __dirname+'/'+defaultOptions.sub+'/';
+  
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+  
   request(url)
-  .pipe(fs.createWriteStream(filename))
+  .pipe(fs.createWriteStream(dir+filename))
   .on('close', () => {
     console.log(url, chalk.green(' downloaded successfully'))
     callback(null, filename)
