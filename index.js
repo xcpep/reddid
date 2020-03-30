@@ -77,7 +77,7 @@ function getImage (post, callback) {
 }
 
 function downloadImage (url, filename, callback) {
-  let dir = __dirname+'/'+defaultOptions.sub+'/';
+  let dir = path.join(__dirname, '../')+'/'+defaultOptions.sub+'/';
   
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
