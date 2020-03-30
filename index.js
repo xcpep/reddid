@@ -78,11 +78,11 @@ function getImage (post, callback) {
 }
 
 function downloadImage (url, filename, callback) {
-  let dir = path.join(__dirname, '../', 'reddit/')+defaultOptions.sub+'/';
+  let dir = path.join(__dirname, '../');
+  dir += '/reddit/'+defaultOptions.sub+'/';
   
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-  }
+  var shell = require('shelljs');
+  shell.mkdir('-p', dir);
   
   request(url)
   .pipe(fs.createWriteStream(dir+filename))
